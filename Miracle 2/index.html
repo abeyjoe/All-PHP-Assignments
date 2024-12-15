@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shape Calculator</title>
+  <style>
+    /* General Body Styling */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #eef2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
+
+    /* Calculator Container */
+    .calculator-container {
+      background: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+      padding: 30px;
+    }
+
+    /* Title Styling */
+    h1 {
+      font-size: 2rem;
+      color: #4076d6;
+      margin-bottom: 25px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-align: center;
+      border-bottom: 2px solid #d9e3f0;
+      padding-bottom: 10px;
+    }
+
+    /* Input Groups */
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    label {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      outline: none;
+      background: #f8f9fb;
+      color: #333;
+      transition: border 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input:focus,
+    select:focus {
+      border: 1px solid #4076d6;
+      box-shadow: 0 0 8px rgba(64, 118, 214, 0.3);
+    }
+
+    /* Button Styling */
+    button {
+      width: 100%;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(to right, #4076d6, #275fc1);
+      color: #fff;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #275fc1, #1647a8);
+      transform: translateY(-2px);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    /* Result Box */
+    .result {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding: 15px;
+      border-radius: 8px;
+      background: #f0f7ff;
+      color: #4076d6;
+      border: 1px solid #dce6f9;
+      text-align: center;
+    }
+
+    /* Small Screen Adjustments */
+    @media (max-width: 600px) {
+      .calculator-container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      button {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="calculator-container">
+    <h1>Shape Calculator</h1>
+    <form id="geometryForm">
+      <div class="input-group">
+        <label for="object">Select a Shape:</label>
+        <select id="object" name="object" required>
+          <option value="">-- Choose a Shape --</option>
+          <option value="circle">Circle</option>
+          <option value="rectangle">Rectangle</option>
+          <option value="square">Square</option>
+          <option value="triangle">Triangle</option>
+          <option value="trapezium">Trapezium</option>
+        </select>
+      </div>
+      <div id="inputs" class="input-group"></div>
+      <button type="button" onclick="calculate()">Calculate</button>
+    </form>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script src="./geometry.js"></script>
+  
+</body>
+
+</html>

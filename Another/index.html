@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shape Calculator</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .calculator-container {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-size: 1rem;
+      font-weight: bold;
+      padding: 10px;
+      border-radius: 5px;
+      background: #eef6ff;
+      color: #333;
+      text-align: center;
+      border: 1px solid #d0e6ff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="calculator-container">
+      <h1 class="text-center mb-4">Shape Calculator</h1>
+      <form id="geometryForm">
+        <div class="mb-3">
+          <label for="object" class="form-label">Select a Shape</label>
+          <select id="object" name="object" class="form-select" required>
+            <option value="">-- Select --</option>
+            <option value="circle">Circle</option>
+            <option value="rectangle">Rectangle</option>
+            <option value="ellipse">Ellipse</option>
+            <option value="pentagon">Pentagon</option>
+            <option value="trapezium">Trapezium</option>
+          </select>
+        </div>
+        <div id="inputs" class="mb-3"></div>
+        <button type="button" class="btn btn-primary w-100" onclick="calculate()">Calculate</button>
+      </form>
+      <div class="result" id="result"></div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+  <script>
+    document.getElementById("object").addEventListener("change", displayInputs);
+
+    function displayInputs() {
+      const object = document.getElementById("object").value;
+      const inputsDiv = document.getElementById("inputs");
+      inputsDiv.innerHTML = ""; // Clear previous inputs
+
+      switch (object) {
+        case "circle":
+          inputsDiv.innerHTML = `
+            <div class="mb-3">
+              <label for="radius" class="form-label">Radius:</label>
+              <input type="number" id="radius" name="radius" class="form-control" min="0" required>
+            </div>`;
+          break;
+
+        case "rectangle":
+          inputsDiv.innerHTML = `
+            <div class="mb-3">
+              <label for="length" class="form-label">Length:</label>
+              <input type="number" id="length" name="length" class="form-control" min="0" required>
+            </div>
+            <div class="mb-3">
+              <label for="width" class="form-label">Width:</label>
+              <input type="number" id="width" name="width" class="form-control" min="0" required>
+            </div>`;
+          break;
+
+        case "ellipse":
+          inputsDiv.innerHTML = `
+            <div class="mb-3">
+              <label for="a" class="form-label">Semi-major Axis (a):</label>
+              <input type="number" id="a" name="a" class="form-control" min="0" required>
+            </div>
+            <div class="mb-3">
+              <label for="b" class="form-label">Semi-minor Axis (b):</label>
+              <input type="number" id="b" name="b" class="form-control" min="0" required>
+            </div>`;
+          break;
+
+        case "pentagon":
+          inputsDiv.innerHTML = `
+            <div class="mb-3">
+              <label for="side" class="form-label">Side Length:</label>
+              <input type="number" id="side" name="side" class="form-control" min="0" required>
+            </div>`;
+          break;
+
+        case "trapezium":
+          inputsDiv.innerHTML = `
+            <div class="mb-3">
+              <label for="base1" class="form-label">Base 1:</label>
+              <input type="number" id="base1" name="base1" class="form-control" min="0" required>
+            </div>
+            <div class="mb-3">
+              <label for="base2" class="form-label">Base 2:</label>
+              <input type="number" id="base2" name="base2" class="form-control" min="0" required>
+            </div>
+            <div class="mb-3">
+              <label for="height" class="form-label">Height:</label>
+              <input type="number" id="height" name="height" class="form-control" min="0" required>
+            </div>`;
+          break;
+
+        default:
+          break;
+      }
+    }
+
+    function calculate() {
+      const object = document.getElementById("object").value;
+      const resultDiv = document.getElementById("result");
+      let result = "";
+
+      switch (object) {
+        case "circle": {
+          const radius = parseFloat(document.getElementById("radius").value);
+          if (!isNaN(radius)) {
+            const area = Math.PI * Math.pow(radius, 2);
+            const circumference = 2 * Math.PI * radius;
+            result = `Area: ${area.toFixed(2)}, Circumference: ${circumference.toFixed(2)}`;
+          }
+          break;
+        }
+
+        case "rectangle": {
+          const length = parseFloat(document.getElementById("length").value);
+          const width = parseFloat(document.getElementById("width").value);
+          if (!isNaN(length) && !isNaN(width)) {
+            const area = length * width;
+            const perimeter = 2 * (length + width);
+            result = `Area: ${area}, Perimeter: ${perimeter}`;
+          }
+          break;
+        }
+
+        case "ellipse": {
+          const a = parseFloat(document.getElementById("a").value);
+          const b = parseFloat(document.getElementById("b").value);
+          if (!isNaN(a) && !isNaN(b)) {
+            const area = Math.PI * a * b;
+            const perimeter = Math.PI * (3 * (a + b) - Math.sqrt((3 * a + b) * (a + 3 * b)));
+            result = `Area: ${area.toFixed(2)}, Perimeter: ${perimeter.toFixed(2)}`;
+          }
+          break;
+        }
+
+        case "pentagon": {
+          const side = parseFloat(document.getElementById("side").value);
+          if (!isNaN(side)) {
+            const area = (5 / 2) * Math.pow(side, 2) * Math.tan(Math.PI / 5);
+            const perimeter = 5 * side;
+            result = `Area: ${area.toFixed(2)}, Perimeter: ${perimeter.toFixed(2)}`;
+          }
+          break;
+        }
+
+        case "trapezium": {
+          const base1 = parseFloat(document.getElementById("base1").value);
+          const base2 = parseFloat(document.getElementById("base2").value);
+          const height = parseFloat(document.getElementById("height").value);
+          if (!isNaN(base1) && !isNaN(base2) && !isNaN(height)) {
+            const area = 0.5 * (base1 + base2) * height;
+            const perimeter = base1 + base2 + 2 * Math.sqrt(Math.pow((base2 - base1) / 2, 2) + Math.pow(height, 2));
+            result = `Area: ${area.toFixed(2)}, Perimeter: ${perimeter.toFixed(2)}`;
+          }
+          break;
+        }
+
+        default:
+          result = "Please select a valid object and provide required inputs.";
+      }
+
+      resultDiv.textContent = result || "Invalid input! Please check the values.";
+    }
+  </script>
+</body>
+
+</html>
